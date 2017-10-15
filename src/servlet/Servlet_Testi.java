@@ -5,13 +5,15 @@ import dao.Dao_Artikkeli;
 import model.Alusta;
 import model.Artikkeli;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+
+/*
+Testi-servlet, joka tulostaa kaikki artikkelit ja alustat konsoliin.
+ */
 
 @WebServlet("/Servlet_Testi")
 public class Servlet_Testi extends HttpServlet {
@@ -37,7 +39,7 @@ public class Servlet_Testi extends HttpServlet {
 
         Dao_Artikkeli dao2 = new Dao_Artikkeli();
         try {
-            ArrayList<Artikkeli> artikkelit = dao2.haeAlustat();
+            ArrayList<Artikkeli> artikkelit = dao2.haeArtikkelit();
             for (Artikkeli artikkeli : artikkelit) {
                 System.out.println(artikkeli);
             }
