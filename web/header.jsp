@@ -3,4 +3,5 @@
 <head>
     <title>Title</title>
 </head>
-<body onload='window.location.replace("/Pelimyynti/Servlet_Testi")'>
+<body>
+<div><a href="http://localhost:8080/Pelimyynti/artikkelihaku.jsp">Hae artikkelit</a> <a href="http://localhost:8080/Pelimyynti/alustahaku.jsp">Hae alustat</a></div>
