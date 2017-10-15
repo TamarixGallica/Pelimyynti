@@ -49,6 +49,8 @@ public class Artikkeli {
         this.pyyntihinta = pyyntihinta;
     }
 
+    public void setPyyntihinta(String pyyntihinta) { this.pyyntihinta = Float.parseFloat(pyyntihinta);}
+
     @Override
     public String toString() {
         return "Artikkeli [artikkeli_id=" + artikkeli_id + ", nimi=" + nimi
