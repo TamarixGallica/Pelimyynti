@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/Servlet_LisaaArtikkeli")
 public class Servlet_LisaaArtikkeli extends HttpServlet {
@@ -38,7 +37,7 @@ public class Servlet_LisaaArtikkeli extends HttpServlet {
         artikkeli.setPyyntihinta(request.getParameter("Pyyntihinta"));
 
         Dao_Artikkeli dao = new Dao_Artikkeli();
-        dao.lisaaArtikkelit(artikkeli);
+        dao.lisaaArtikkeli(artikkeli);
 
         response.sendRedirect("artikkelihaku.jsp");
     }
