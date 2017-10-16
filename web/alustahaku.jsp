@@ -25,6 +25,11 @@
 
 </table>
 
+<form action="Servlet_LisaaAlusta" method="post">
+    Nimi: <input type="text" name="Nimi"><br>
+    <input type="submit">
+</form>
+
 
 
 </body>
