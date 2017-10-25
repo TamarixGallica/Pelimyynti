@@ -35,5 +35,14 @@ public class Servlet_HaeArtikkelit extends HttpServlet {
             e.printStackTrace();
         }
 
+        // Koetulostus artikkelien hakemiselle JSON-muodossa
+        try {
+            String[] sarakkeet={"Nimi", "Lisatiedot"};
+            System.out.println(dao.haeTiedotJSON(sarakkeet, "pm_artikkelit"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
