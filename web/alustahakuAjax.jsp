@@ -28,6 +28,15 @@
             $.each( data, function( key, val ) {
                 print_line(key, val);
             });
+            $('td').hover(function() {
+                $(this).addClass('hover');
+                $(this).children().addClass('hover');
+//            $(this).children("span").css("display", "inline");
+            }, function() {
+                $(this).removeClass('hover');
+                $(this).children().removeClass('hover');
+            });
+
         });
 
         $("#Lisaa").click(function() {
@@ -51,14 +60,6 @@
         });
 
 
-        $('td').hover(function() {
-            $(this).addClass('hover');
-            $(this).children().addClass('hover');
-//            $(this).children("span").css("display", "inline");
-        }, function() {
-            $(this).removeClass('hover');
-            $(this).children().removeClass('hover');
-        });
 
     })
 
