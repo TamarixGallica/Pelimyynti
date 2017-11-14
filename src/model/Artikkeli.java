@@ -4,6 +4,7 @@ public class Artikkeli {
     private int artikkeli_id;
     private String nimi, lisatiedot;
     private float pyyntihinta;
+    private Alusta alusta;
 
     public Artikkeli() {
         super();
@@ -15,6 +16,7 @@ public class Artikkeli {
         this.nimi = nimi;
         this.lisatiedot = lisatiedot;
         this.pyyntihinta = pyyntihinta;
+        this.alusta = new Alusta();
     }
 
     public int getArtikkeli_id() {
@@ -50,6 +52,16 @@ public class Artikkeli {
     }
 
     public void setPyyntihinta(String pyyntihinta) { this.pyyntihinta = Float.parseFloat(pyyntihinta);}
+
+    public int getAlustaId() {
+        return alusta.getAlusta_id();
+    }
+
+    public void setAlusta(int id) {
+        this.alusta.setAlusta_id(id);
+    }
+
+
 
     @Override
     public String toString() {

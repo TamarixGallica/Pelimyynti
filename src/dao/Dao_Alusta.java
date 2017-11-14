@@ -2,7 +2,9 @@ package dao;
 
 import model.Alusta;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Dao_Alusta extends Dao {
@@ -41,6 +43,33 @@ public class Dao_Alusta extends Dao {
         } catch (Exception e) {
             e.printStackTrace();
             paluuArvo = false;
+        }
+
+        return paluuArvo;
+    }
+
+    public int lisaaAlustaAjax(Alusta alusta) {
+        int paluuArvo;
+
+        sql = "INSERT INTO pm_alustat(Nimi) VALUES(?)";
+
+        try {
+            con = yhdista();
+            stmtPrep = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmtPrep.setString(1, alusta.getNimi());
+            rs = stmtPrep.executeQuery();
+            try (ResultSet generatedKeys = stmtPrep.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    paluuArvo=generatedKeys.getInt("Alustat_id");
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            paluuArvo = -1;
         }
 
         return paluuArvo;
