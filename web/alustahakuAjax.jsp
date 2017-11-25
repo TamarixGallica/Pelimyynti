@@ -55,17 +55,29 @@
                 })
             });
 
-            $("a.fa-pencil").last().click(function(e) {
+            $("a.fa-pencil").last().click(function() {
                 var html = $(this).parent().parent().children("td.nimi").html()
                 var input = $('<input type="text" />');
                 input.val(html);
                 $(this).parent().parent().children("td.nimi").html(input);
-//                $(this).removeClass("fa-pencil").addClass("fa-check");
-//                $(this).parent().parent().find("a.fa-trash").removeClass("fa-trash").addClass("fa-close");
                 $(this).hide();
                 $(this).parent().parent().find("a.fa-check").show();
                 $(this).parent().parent().find("a.fa-trash").hide();
                 $(this).parent().parent().find("a.fa-close").show();
+
+            });
+
+            $("a.fa-close").last().click(function() {
+                var callee = this;
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
+                    $.each( data, function( key, val ) {
+                        $(callee).parent().parent().find("input").replaceWith(val.Nimi);
+                    });
+                });
+                $(this).parent().parent().find("a.fa-pencil").show();
+                $(this).parent().parent().find("a.fa-check").hide();
+                $(this).parent().parent().find("a.fa-trash").show();
+                $(this).parent().parent().find("a.fa-close").hide();
 
             });
 
