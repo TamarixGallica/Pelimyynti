@@ -14,6 +14,14 @@
         display: none;
         color: red;
     }
+    a.fa-check.visible {
+        display: inline;
+        font-size: 200%;
+    }
+    a.fa-close.visible {
+        display: inline;
+        font-size: 200%;
+    }
     div.information {
         display: none;
     }
@@ -38,21 +46,37 @@
 
     $(document).ready(function() {
 
+        function confirm_deletion(id) {
+            $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+id, function(data) {
+                $.each( data, function( key, val ) {
+                    $("div.information").html("<p>Haluatko varmasti poistaa alustan "+val.Nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>");
+                    $("div.information").show(500);
+                });
+                $("a.fa-check.visible").click(function() {
+                    $.getJSON("Servlet_PoistaAlusta_Ajax?id="+id, function(data) {
+                        if(data[0].status=="OK") {
+                            $("td[id="+id+"]").parent().remove();
+                            $("div.information").hide(500);
+                            //$(callee).parent().parent().remove();
+                        } else {
+                            if((data[0].status=="ERROR") && (data[0].message=="1451")) {
+                                $("div.information").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
+                                $("div.information").show(500).delay(2000).hide(500);
+                            }
+                        }
+                    })
+                });
+                $("a.fa-close.visible").click(function() {
+                    $("div.information").hide(500);
+                });
+            });
+        }
+
         function print_line(key, val) {
             $("thead").append("<tr><td id=\'" + val.Alustat_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
 
             $("a.fa-trash").last().click(function() {
-                var callee = this;
-                $.getJSON("Servlet_PoistaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
-                    if(data[0].status=="OK") {
-                        $(callee).parent().parent().remove();
-                    } else {
-                        if((data[0].status=="ERROR") && (data[0].message=="1451")) {
-                            $("div.information").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
-                            $("div.information").show(500).delay(2000).hide(500);
-                        }
-                    }
-                })
+                confirm_deletion($(this).parent().parent().children("td.nimi")[0].id);
             });
 
             $("a.fa-pencil").last().click(function() {
