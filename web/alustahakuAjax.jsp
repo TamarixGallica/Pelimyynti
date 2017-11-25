@@ -37,23 +37,8 @@
 
         function print_line(key, val) {
             $("thead").append("<tr><td id=\'" + val.Alustat_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
-        }
 
-        $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data ) {
-            var items = [];
-            $.each( data, function( key, val ) {
-                print_line(key, val);
-            });
-            $('td').hover(function() {
-                $(this).addClass('hover');
-                $(this).children().addClass('hover');
-//            $(this).children("span").css("display", "inline");
-            }, function() {
-                $(this).removeClass('hover');
-                $(this).children().removeClass('hover');
-            });
-
-            $("a.fa-trash").click(function(e) {
+            $("a.fa-trash").last().click(function(e) {
 //                console.log(e.target.parentElement.attributes[0].value);
                 console.log($(this).parent().parent().children("td.nimi")[0].id);
                 $.getJSON("Servlet_PoistaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
@@ -70,7 +55,7 @@
                 })
             });
 
-            $("a.fa-pencil").click(function(e) {
+            $("a.fa-pencil").last().click(function(e) {
                 var html = $(this).parent().parent().children("td.nimi").html()
                 var input = $('<input type="text" />');
                 input.val(html);
@@ -83,6 +68,23 @@
                 $(this).parent().parent().find("a.fa-close").show();
 
             });
+
+        }
+
+        $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data ) {
+            var items = [];
+            $.each( data, function( key, val ) {
+                print_line(key, val);
+            });
+            $('td').hover(function() {
+                $(this).addClass('hover');
+                $(this).children().addClass('hover');
+//            $(this).children("span").css("display", "inline");
+            }, function() {
+                $(this).removeClass('hover');
+                $(this).children().removeClass('hover');
+            });
+
 
         });
 
