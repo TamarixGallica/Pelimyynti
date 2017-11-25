@@ -67,7 +67,18 @@
             });
 
             $("a.fa-check").last().click(function() {
+                var callee = this;
+                $(this).parent().parent().find("input").val();
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id+"&Nimi="+$(this).parent().parent().find("input").val(), function(data) {
+                    if(data[0].status=="OK") {
+                        $(callee).parent().parent().find("input").replaceWith($(callee).parent().parent().find("input").val());
+                    }
+                    $(callee).parent().parent().find("a.fa-pencil").show();
+                    $(callee).parent().parent().find("a.fa-check").hide();
+                    $(callee).parent().parent().find("a.fa-trash").show();
+                    $(callee).parent().parent().find("a.fa-close").hide();
 
+                });
             });
 
             $("a.fa-close").last().click(function() {
