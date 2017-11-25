@@ -38,12 +38,11 @@
         function print_line(key, val) {
             $("thead").append("<tr><td id=\'" + val.Alustat_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
 
-            $("a.fa-trash").last().click(function(e) {
-//                console.log(e.target.parentElement.attributes[0].value);
-                console.log($(this).parent().parent().children("td.nimi")[0].id);
+            $("a.fa-trash").last().click(function() {
+                var callee = this;
                 $.getJSON("Servlet_PoistaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
                     if(data[0].status=="OK") {
-                        e.target.parentElement.parentElement.remove();
+                        $(callee).parent().parent().remove();
                     } else {
                         if((data[0].status=="ERROR") && (data[0].message=="1451")) {
                             $("div.error").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
@@ -64,6 +63,10 @@
                 $(this).parent().parent().find("a.fa-check").show();
                 $(this).parent().parent().find("a.fa-trash").hide();
                 $(this).parent().parent().find("a.fa-close").show();
+
+            });
+
+            $("a.fa-check").last().click(function() {
 
             });
 
