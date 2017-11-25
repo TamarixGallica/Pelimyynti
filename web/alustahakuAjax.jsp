@@ -3,13 +3,29 @@
 <%@ page import="java.util.ArrayList"%>
 
 <style>
-
+    a.fa {
+        text-decoration: none;
+    }
+    a.fa-check {
+        display: none;
+        color: green;
+    }
+    a.fa-close {
+        display: none;
+        color: red;
+    }
 </style>
+
+<div class="error">
+    Foo.
+</div>
 
 <table>
     <thead id="headi">
     <tr>
         <th>Nimi</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
 
@@ -20,7 +36,7 @@
     $(document).ready(function() {
 
         function print_line(key, val) {
-            $("thead").append("<tr><td id='" + key + "'>" + val.Nimi + " <i class=\"fa fa-trash\"></i> <i class=\"fa fa-pencil\"></i></td></tr>");
+            $("thead").append("<tr><td id=\'" + val.Alustat_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
         }
 
         $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data ) {
@@ -35,6 +51,37 @@
             }, function() {
                 $(this).removeClass('hover');
                 $(this).children().removeClass('hover');
+            });
+
+            $("a.fa-trash").click(function(e) {
+//                console.log(e.target.parentElement.attributes[0].value);
+                console.log($(this).parent().parent().children("td.nimi")[0].id);
+                $.getJSON("Servlet_PoistaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
+                    if(data[0].status=="OK") {
+                        e.target.parentElement.parentElement.remove();
+                    } else {
+                        if((data[0].status=="ERROR") && (data[0].message=="1451")) {
+                            $("div.error").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
+//                            $("div.error").show();
+                            $("div.error").slideDown(1000).delay(1000).slideUp(1000);
+//                            $("div.error").hide();
+                        }
+                    }
+                })
+            });
+
+            $("a.fa-pencil").click(function(e) {
+                var html = $(this).parent().parent().children("td.nimi").html()
+                var input = $('<input type="text" />');
+                input.val(html);
+                $(this).parent().parent().children("td.nimi").html(input);
+//                $(this).removeClass("fa-pencil").addClass("fa-check");
+//                $(this).parent().parent().find("a.fa-trash").removeClass("fa-trash").addClass("fa-close");
+                $(this).hide();
+                $(this).parent().parent().find("a.fa-check").show();
+                $(this).parent().parent().find("a.fa-trash").hide();
+                $(this).parent().parent().find("a.fa-close").show();
+
             });
 
         });
