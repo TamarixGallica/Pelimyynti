@@ -14,9 +14,12 @@
         display: none;
         color: red;
     }
+    div.information {
+        display: none;
+    }
 </style>
 
-<div class="error">
+<div class="information">
     Foo.
 </div>
 
@@ -45,10 +48,8 @@
                         $(callee).parent().parent().remove();
                     } else {
                         if((data[0].status=="ERROR") && (data[0].message=="1451")) {
-                            $("div.error").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
-//                            $("div.error").show();
-                            $("div.error").slideDown(1000).delay(1000).slideUp(1000);
-//                            $("div.error").hide();
+                            $("div.information").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
+                            $("div.information").show(500).delay(2000).hide(500);
                         }
                     }
                 })
@@ -68,7 +69,6 @@
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $(this).parent().parent().find("input").val();
                 $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id+"&Nimi="+$(this).parent().parent().find("input").val(), function(data) {
                     if(data[0].status=="OK") {
                         $(callee).parent().parent().find("input").replaceWith($(callee).parent().parent().find("input").val());
