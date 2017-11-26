@@ -2,31 +2,6 @@
 <%@ page import="model.Artikkeli"%>
 <%@ page import="java.util.ArrayList"%>
 
-<style>
-    a.fa {
-        text-decoration: none;
-    }
-    a.fa-check {
-        display: none;
-        color: green;
-    }
-    a.fa-close {
-        display: none;
-        color: red;
-    }
-    a.fa-check.visible {
-        display: inline;
-        font-size: 200%;
-    }
-    a.fa-close.visible {
-        display: inline;
-        font-size: 200%;
-    }
-    div.information {
-        display: none;
-    }
-</style>
-
 <div class="information">
     Foo.
 </div>
@@ -88,6 +63,7 @@
                 $(this).parent().parent().find("a.fa-check").show();
                 $(this).parent().parent().find("a.fa-trash").hide();
                 $(this).parent().parent().find("a.fa-close").show();
+                $("div.information").hide(500);
 
             });
 
@@ -126,14 +102,14 @@
             $.each( data, function( key, val ) {
                 print_line(key, val);
             });
-            $('td').hover(function() {
-                $(this).addClass('hover');
-                $(this).children().addClass('hover');
-//            $(this).children("span").css("display", "inline");
-            }, function() {
-                $(this).removeClass('hover');
-                $(this).children().removeClass('hover');
-            });
+//            $('td').hover(function() {
+//                $(this).addClass('hover');
+//                $(this).children().addClass('hover');
+////            $(this).children("span").css("display", "inline");
+//            }, function() {
+//                $(this).removeClass('hover');
+//                $(this).children().removeClass('hover');
+//            });
 
 
         });
