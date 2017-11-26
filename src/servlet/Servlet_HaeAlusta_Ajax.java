@@ -24,7 +24,7 @@ public class Servlet_HaeAlusta_Ajax extends HttpServlet{
             String[] sarakkeet = {"Alustat_id", "Nimi"};
             String strJSON = dao.haeTiedotJSON(sarakkeet, "pm_alustat", "Alustat_id", request.getParameter("id"));
             PrintWriter out = response.getWriter();
-//            response.setContentType("text/html");
+            response.setContentType("application/json");
             out.println(strJSON);
         } catch (Exception e) {
             e.printStackTrace();
