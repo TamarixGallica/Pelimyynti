@@ -21,7 +21,7 @@ public class Servlet_HaeArtikkelit_Ajax extends HttpServlet{
         System.out.println("Servlet_HaeArtikkelit_Ajax.doGet()");
         Dao_Artikkeli dao = new Dao_Artikkeli();
         try {
-            String[] sarakkeet = {"Nimi", "Lisatiedot", "Pyyntihinta"};
+            String[] sarakkeet = {"Artikkelit_id", "Nimi", "Lisatiedot", "Pyyntihinta"};
             String strJSON = dao.haeTiedotJSON(sarakkeet, "pm_artikkelit");
             PrintWriter out = response.getWriter();
 //            response.setContentType("text/html");
