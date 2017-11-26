@@ -22,25 +22,16 @@
 <script>
     $(document).ready(function() {
 
-        $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax", function( data ) {
+        $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeArtikkelit_Ajax", function( data ) {
             var items = [];
             $.each( data, function( key, val ) {
-                // items.push( "<td id='" + key + "'>" + val.Nimi + "</td><td>" + val.Lisatiedot + "</td>" );
-//                items.push( "<td id='" + key + "'>" + val.Lisatiedot + "</td>" );
-//                items.push( "<td id='" + key + "'>" + val.Pyyntihinta + "</td>" );
-                $("thead").append("<tr><td id='" + key + "'>" + val.Nimi + "</td><td>" + val.Lisatiedot + "</td><td>"+val.Pyyntihinta+"</tr>");
+                print_line(key, val);
             });
-//            $.each(data, function( item ) {
-//                items.push("<li>" + item.nimi + "</li>");
-//            })
-
-            // $("thead").append(items);
-
-            // $( "<tr/>", {
-            //    "class": "my-new-list",
-            //     html: items.join( "" )
-            // }).appendTo( "thead" );
         });
+
+        function print_line(key, val) {
+            $("thead").append("<tr><td id='" + key + "'>" + val.Nimi + "</td><td>" + val.Lisatiedot + "</td><td>"+val.Pyyntihinta+"</tr>");
+        }
     })
 </script>
 
