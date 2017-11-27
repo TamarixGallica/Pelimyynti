@@ -21,10 +21,10 @@ public class Servlet_HaeArtikkelit_Ajax extends HttpServlet{
         System.out.println("Servlet_HaeArtikkelit_Ajax.doGet()");
         Dao_Artikkeli dao = new Dao_Artikkeli();
         try {
-            String[] sarakkeet = {"Artikkelit_id", "Nimi", "Lisatiedot", "Pyyntihinta"};
-            String strJSON = dao.haeTiedotJSON(sarakkeet, "pm_artikkelit");
+//            String[] sarakkeet = {"Artikkelit_id", "Nimi", "Lisatiedot", "Pyyntihinta"};
+            String strJSON = dao.haeTiedotJSON("", "");
             PrintWriter out = response.getWriter();
-//            response.setContentType("text/html");
+            response.setContentType("application/json");
             out.println(strJSON);
         } catch (Exception e) {
             e.printStackTrace();
