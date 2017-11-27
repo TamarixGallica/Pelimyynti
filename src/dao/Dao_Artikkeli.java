@@ -1,5 +1,7 @@
 package dao;
 
+import com.google.gson.Gson;
+import model.Alusta;
 import model.Artikkeli;
 
 import java.util.ArrayList;
@@ -48,6 +50,55 @@ public class Dao_Artikkeli extends Dao {
         }
 
         return paluuArvo;
+    }
+
+    public String haeTiedotJSON() throws Exception {
+        return this.haeTiedotJSON("", "");
+    }
+
+    public String haeTiedotJSON(String ehtoSarake, String ehtoArvo) throws Exception {
+        String[] sarakkeet = {"Alusta_id", "Alusta_Nimi", "Artikkeli_Nimi", "Lisatiedot", "Pyyntihinta"};
+        ArrayList<Artikkeli> lista = new ArrayList<>();
+
+        sql = "SELECT alu.Alustat_id as Alusta_Id, art.Artikkelit_id as Artikkeli_Id, alu.Nimi as Alusta_Nimi, art.Nimi as Artikkeli_Nimi, art.Lisatiedot, art.Pyyntihinta from pm_artikkelit_alustat pmaa join pm_artikkelit art on pmaa.Artikkelit_id = art.Artikkelit_id join pm_alustat alu on pmaa.Alustat_id = alu.Alustat_id ORDER BY alu.Nimi,art.Nimi";
+
+        if(ehtoSarake.length()>0){
+            sql += " WHERE "+ehtoSarake+"=?";
+        }
+
+
+        System.out.println(sql);
+        con = yhdista();
+        if(con != null) {
+            stmtPrep = con.prepareStatement(sql);
+            if(ehtoSarake.length()>0){
+                stmtPrep.setString(1, ehtoArvo);
+            }
+            rs = stmtPrep.executeQuery();
+            if(rs!=null) {
+                while(rs.next())
+                {
+                    Artikkeli artikkeli = new Artikkeli();
+                    artikkeli.setNimi(rs.getString("Artikkeli_Nimi"));
+                    artikkeli.setArtikkeli_id(rs.getInt("Artikkeli_Id"));
+                    artikkeli.setPyyntihinta(rs.getFloat("Pyyntihinta"));
+                    artikkeli.setLisatiedot(rs.getString("Lisatiedot"));
+
+                    Alusta alusta = new Alusta();
+                    alusta.setAlusta_id(rs.getInt("Alusta_Id"));
+                    alusta.setNimi(rs.getString("Alusta_Nimi"));
+                    artikkeli.setAlusta(alusta);
+
+                    lista.add(artikkeli);
+                }
+            }
+
+            con.close();
+
+
+        }
+
+        return new Gson().toJson(lista);
     }
 
 }
