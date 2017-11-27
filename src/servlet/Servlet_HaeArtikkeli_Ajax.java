@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 @WebServlet("/Servlet_HaeArtikkeli_Ajax")
 public class Servlet_HaeArtikkeli_Ajax extends HttpServlet {
@@ -19,6 +20,15 @@ public class Servlet_HaeArtikkeli_Ajax extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Servlet_HaeArtikkeli_Ajax.doGet()");
         Dao_Artikkeli dao = new Dao_Artikkeli();
+        try {
+            String[] sarakkeet = {"Artikkelit_id", "Nimi"};
+            String strJSON = dao.haeTiedotJSON(sarakkeet, "pm_artikkelit", "Artikkelit_id", request.getParameter("id"));
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            out.println(strJSON);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
