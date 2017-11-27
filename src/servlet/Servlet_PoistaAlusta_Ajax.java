@@ -23,10 +23,10 @@ public class Servlet_PoistaAlusta_Ajax extends HttpServlet {
         try {
             String strJSON = dao.poistaTiedotJSON("pm_alustat", "Alustat_id", request.getParameter("id"));
             PrintWriter out = response.getWriter();
-    //            response.setContentType("text/html");
+            response.setContentType("application/json");
             out.println(strJSON);
         } catch (Exception e) {
             e.printStackTrace();
+        }
     }
-
 }
