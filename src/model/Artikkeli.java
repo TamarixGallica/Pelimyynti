@@ -53,12 +53,8 @@ public class Artikkeli {
 
     public void setPyyntihinta(String pyyntihinta) { this.pyyntihinta = Float.parseFloat(pyyntihinta);}
 
-    public int getAlustaId() {
-        return alusta.getAlusta_id();
-    }
-
-    public void setAlusta(int id) {
-        this.alusta.setAlusta_id(id);
+    public void setAlusta(Alusta alusta) {
+        this.alusta = alusta;
     }
 
 
