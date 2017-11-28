@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import model.Alusta;
 import model.Artikkeli;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Dao_Artikkeli extends Dao {
@@ -52,6 +55,42 @@ public class Dao_Artikkeli extends Dao {
         return paluuArvo;
     }
 
+    public int lisaaArtikkeliAjax(Artikkeli artikkeli) {
+        int paluuArvo;
+
+        sql = "INSERT INTO pm_artikkelit(Nimi, Lisatiedot, Pyyntihinta) VALUES(?,?,?)";
+
+        try {
+            con = yhdista();
+            stmtPrep = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmtPrep.setString(1, artikkeli.getNimi());
+            stmtPrep.setString(2, artikkeli.getLisatiedot());
+            stmtPrep.setFloat(3, artikkeli.getPyyntihinta());
+            rs = stmtPrep.executeQuery();
+            try (ResultSet generatedKeys = stmtPrep.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    paluuArvo=generatedKeys.getInt("Artikkelit_id");
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+
+            sql = "INSERT INTO pm_artikkelit_alustat(Artikkelit_id, Alustat_id) VALUES (?, ?)";
+            stmtPrep = con.prepareStatement(sql);
+            stmtPrep.setInt(1, paluuArvo);
+            stmtPrep.setInt(2, artikkeli.getAlusta().getAlusta_id());
+            rs = stmtPrep.executeQuery();
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            paluuArvo = -1;
+        }
+
+        return paluuArvo;
+    }
+
     public String haeTiedotJSON() throws Exception {
         return this.haeTiedotJSON("", "");
     }
@@ -60,20 +99,22 @@ public class Dao_Artikkeli extends Dao {
         String[] sarakkeet = {"Alusta_id", "Alusta_Nimi", "Artikkeli_Nimi", "Lisatiedot", "Pyyntihinta"};
         ArrayList<Artikkeli> lista = new ArrayList<>();
 
-        sql = "SELECT alu.Alustat_id as Alusta_Id, art.Artikkelit_id as Artikkeli_Id, alu.Nimi as Alusta_Nimi, art.Nimi as Artikkeli_Nimi, art.Lisatiedot, art.Pyyntihinta from pm_artikkelit_alustat pmaa join pm_artikkelit art on pmaa.Artikkelit_id = art.Artikkelit_id join pm_alustat alu on pmaa.Alustat_id = alu.Alustat_id ORDER BY alu.Nimi,art.Nimi";
-
+        String ehtolause="";
         if(ehtoSarake.length()>0){
-            sql += " WHERE "+ehtoSarake+"=?";
+            ehtolause = " WHERE "+ehtoSarake+"=?";
         }
+
+        sql = "SELECT alu.Alustat_id as Alusta_Id, art.Artikkelit_id as Artikkeli_Id, alu.Nimi as Alusta_Nimi, art.Nimi as Artikkeli_Nimi, art.Lisatiedot, art.Pyyntihinta from pm_artikkelit_alustat pmaa join pm_artikkelit art on pmaa.Artikkelit_id = art.Artikkelit_id join pm_alustat alu on pmaa.Alustat_id = alu.Alustat_id "+ehtolause+"ORDER BY alu.Nimi,art.Nimi";
 
 
         System.out.println(sql);
         con = yhdista();
         if(con != null) {
             stmtPrep = con.prepareStatement(sql);
-            if(ehtoSarake.length()>0){
+            if(ehtolause.length()>0){
                 stmtPrep.setString(1, ehtoArvo);
             }
+            System.out.println(stmtPrep);
             rs = stmtPrep.executeQuery();
             if(rs!=null) {
                 while(rs.next())

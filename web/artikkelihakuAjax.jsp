@@ -18,20 +18,23 @@
 
 </table>
 
-<form action="Servlet_LisaaArtikkeli" method="post">
+<%--<form action="Servlet_LisaaArtikkeli" method="post">--%>
+<form action="#">
+    Alusta: <select name="Alusta"></select><br>
     Nimi: <input type="text" name="Nimi"><br>
     Lisätiedot: <input type="text" name="Lisatiedot"><br>
     Pyyntihinta: <input type="text" name="Pyyntihinta"><br/>
-    <input type="submit">
+    <input type="button" id="Lisaa" name="Lisää" value="Lisää">
 </form>
 <script>
 
     function confirm_deletion(id) {
         $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+id, function(data) {
             $.each( data, function( key, val ) {
-                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.Nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>");
+                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>");
                 $("div.information").show(500);
             });
+
 //            $("a.fa-check.visible").click(function() {
 //                $.getJSON("Servlet_PoistaAlusta_Ajax?id="+id, function(data) {
 //                    if(data[0].status=="OK") {
@@ -60,6 +63,12 @@
             });
         });
 
+        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data) {
+            $.each( data, function( key, val) {
+               $("select[name=Alusta]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
+            });
+        });
+
         function print_line(key, val) {
             $("thead").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.alusta.alusta_id+"\">"+val.alusta.nimi+"</td><td id='" + val.artikkeli_id + "' class=\"Nimi\">" + val.nimi + "</td><td>" + val.lisatiedot + "</td><td>"+val.pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><td><a href=\"#\" class=\"fa fa-trash\"></a></tr>");
 
@@ -68,7 +77,29 @@
             });
 
         }
-    })
+
+        $("#Lisaa").click(function() {
+            $.post("Servlet_LisaaArtikkeli_Ajax", { Alustat_id: $("select[name=Alusta]").val(), Nimi: $("[name=Nimi]").val(), Lisatiedot: $("[name=Lisatiedot]").val(), Pyyntihinta: $("[name=Pyyntihinta]").val()})
+                .done(function(data) {
+                    if(data < 0) {
+
+                    }
+                    else {
+                        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+data, function(data2) {
+                            $.each( data2, function( key, val ) {
+                                print_line(key, val);
+                            });
+                            $("[name=Nimi]").val("");
+                            $("[name=Lisatiedot]").val("");
+                            $("[name=Pyyntihinta]").val("");
+                        })
+                    }
+                });
+        });
+
+    });
+
+
 </script>
 
 
