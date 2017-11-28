@@ -31,26 +31,26 @@
     function confirm_deletion(id) {
         $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+id, function(data) {
             $.each( data, function( key, val ) {
-                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>");
-                $("div.information").show(500);
+                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>")
+                    .show(500);
             });
 
-//            $("a.fa-check.visible").click(function() {
-//                $.getJSON("Servlet_PoistaAlusta_Ajax?id="+id, function(data) {
-//                    if(data[0].status=="OK") {
-//                        $("td[id="+id+"]").parent().remove();
-//                        $("div.information").hide(500);
-//                    } else {
-//                        if((data[0].status=="ERROR") && (data[0].message=="1451")) {
-//                            $("div.information").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
-//                            $("div.information").show(500).delay(2000).hide(500);
-//                        }
-//                    }
-//                })
-//            });
-//            $("a.fa-close.visible").click(function() {
-//                $("div.information").hide(500);
-//            });
+            $("a.fa-check.visible").click(function() {
+                $.getJSON("Servlet_PoistaArtikkeli_Ajax?id="+id, function(data) {
+                    if(data[0].status=="OK") {
+                        $("td[id="+id+"]").parent().remove();
+                        $("div.information").hide(500);
+                    } else {
+                        if((data[0].status=="ERROR") && (data[0].message=="1451")) {
+                            $("div.information").html("<p>Laitetta ei voitu poistaa, koska sille on lisätty pelejä.</p>");
+                            $("div.information").show(500).delay(2000).hide(500);
+                        }
+                    }
+                })
+            });
+            $("a.fa-close.visible").click(function() {
+                $("div.information").hide(500);
+            });
         });
     }
 

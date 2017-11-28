@@ -5,6 +5,7 @@ import model.Alusta;
 import model.Artikkeli;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -141,5 +142,4 @@ public class Dao_Artikkeli extends Dao {
 
         return new Gson().toJson(lista);
     }
-
 }
