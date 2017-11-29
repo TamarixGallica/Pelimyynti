@@ -70,10 +70,63 @@
         });
 
         function print_line(key, val) {
-            $("thead").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.alusta.alusta_id+"\">"+val.alusta.nimi+"</td><td id='" + val.artikkeli_id + "' class=\"Nimi\">" + val.nimi + "</td><td>" + val.lisatiedot + "</td><td>"+val.pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><td><a href=\"#\" class=\"fa fa-trash\"></a></tr>");
+            $("thead").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.alusta.alusta_id+"\">"+val.alusta.nimi+"</td><td id='" + val.artikkeli_id + "' class=\"Nimi\">" + val.nimi + "</td><td>" + val.lisatiedot + "</td><td>"+val.pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
 
             $("a.fa-trash").last().click(function() {
                 confirm_deletion($(this).parent().parent().children("td.Nimi")[0].id);
+            });
+
+            $("a.fa-pencil").last().click(function() {
+                var html = $(this).parent().parent().children("td.Nimi").html()
+                var input = $('<input type="text" />');
+                input.val(html);
+                $(this).parent().parent().children("td.Nimi").html(input);
+
+                var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id")
+
+                $(this).closest("tr").find("td.Alusta").replaceWith("<select name=\"Alusta_muok\" data-alusta-id=\""+Alusta_id+"\"></select>");
+
+
+                var callee = this;
+
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data) {
+                    $.each( data, function( key, val) {
+                        //$("select[name=Alusta]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
+                        $(callee).closest("tr").find("select[name=Alusta_muok]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
+                    });
+                    $(callee).closest("tr").find("option[value="+Alusta_id+"]").attr("selected","selected");
+                });
+
+
+                $(this).hide();
+                $(this).parent().parent().find("a.fa-check").show();
+                $(this).parent().parent().find("a.fa-trash").hide();
+                $(this).parent().parent().find("a.fa-close").show();
+                $("div.information").hide(500);
+
+            });
+
+            $("a.fa-close").last().click(function() {
+                var callee = this;
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(this).parent().parent().children("td.Nimi")[0].id, function(data) {
+                    $.each( data, function( key, val ) {
+                        $(callee).parent().parent().find("input").replaceWith(val.nimi);
+                    });
+                });
+                $(this).parent().parent().find("a.fa-pencil").show();
+                $(this).parent().parent().find("a.fa-check").hide();
+                $(this).parent().parent().find("a.fa-trash").show();
+                $(this).parent().parent().find("a.fa-close").hide();
+
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+$(this).closest("tr").find("select").attr("data-alusta-id"), function(data) {
+                    $.each( data, function( key, val ) {
+                        console.log(val);
+                        $(callee).closest("tr").find("select[name=Alusta_muok]").replaceWith("<td class=\"Alusta\" data-alusta-id=\""+val.Alustat_id+"\">"+val.Nimi+"</td>");
+                    });
+//                    $("[name=Nimi]").val("");
+
+                });
+
             });
 
         }
