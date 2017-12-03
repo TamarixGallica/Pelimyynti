@@ -87,10 +87,21 @@
             });
 
             $("a.fa-pencil").last().click(function() {
+                <%-- Haetaan artikkelin nykyinen nimi --%>
                 var html = $(this).closest("tr").children("td.Nimi").html()
+                <%-- Luodaan input-tagi, joka korvaa nykyisen solun --%>
                 var input = $('<input type="text" class=\"Nimi\"/>');
+                <%-- Kirjoitetaan artikkelin nykyinen nimi valmiiksi syötekenttään --%>
                 input.val(html);
+                <%-- Sijoitetaan input-tagi arvoineen soluun, jossa artikkelin nimi on --%>
                 $(this).closest("tr").children("td.Nimi").html(input);
+
+                <%-- Muutetaan Lisätiedot-kenttä vastaavasti kuin yllä oleva --%>
+                var html = $(this).closest("tr").children("td.Lisatiedot").html()
+                var input = $('<input type="text" class=\"Lisatiedot\"/>');
+                input.val(html);
+                $(this).closest("tr").children("td.Lisatiedot").html(input);
+
 
                 var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id")
 
@@ -118,7 +129,7 @@
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).closest("tr").children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).closest("tr").find("input.Nimi").val()+"&Alusta_id="+$(this).closest("tr").find("select").val(), function(data) {
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).closest("tr").children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).closest("tr").find("input.Nimi").val()+"&Alusta_id="+$(this).closest("tr").find("select").val()+"&Artikkeli_lisatiedot="+$(this).closest("tr").find("input.Lisatiedot").val(), function(data) {
                     if(data[0].status=="OK") {
                         $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(callee).closest("tr").children("td.Nimi")[0].id, function(data2) {
 
@@ -146,7 +157,8 @@
                 var callee = this;
                 $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(this).closest("tr").children("td.Nimi")[0].id, function(data) {
                     $.each( data, function( key, val ) {
-                        $(callee).closest("tr").find("input").replaceWith(val.Nimi);
+                        $(callee).closest("tr").find("input.Nimi").replaceWith(val.Nimi);
+                        $(callee).closest("tr").find("input.Lisatiedot").replaceWith(val.Lisatiedot);
                     });
                 });
                 $(this).closest("tr").find("a.fa-pencil").show();
