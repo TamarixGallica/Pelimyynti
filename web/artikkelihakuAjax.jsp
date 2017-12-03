@@ -74,7 +74,7 @@
         });
 
         function print_line(key, val) {
-            $("tbody").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.alusta.alusta_id+"\">"+val.alusta.nimi+"</td><td id='" + val.artikkeli_id + "' class=\"Nimi\">" + val.nimi + "</td><td>" + val.lisatiedot + "</td><td>"+val.pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
+            $("tbody").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.Alusta.alusta_id+"\">"+val.Alusta.nimi+"</td><td id='" + val.Artikkeli_id + "' class=\"Nimi\">" + val.Nimi + "</td><td>" + val.Lisatiedot + "</td><td>"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
 
             $("a.fa-trash").last().click(function() {
                 confirm_deletion($(this).parent().parent().children("td.Nimi")[0].id);
@@ -140,7 +140,7 @@
                 var callee = this;
                 $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(this).parent().parent().children("td.Nimi")[0].id, function(data) {
                     $.each( data, function( key, val ) {
-                        $(callee).parent().parent().find("input").replaceWith(val.nimi);
+                        $(callee).parent().parent().find("input").replaceWith(val.Nimi);
                     });
                 });
                 $(this).parent().parent().find("a.fa-pencil").show();

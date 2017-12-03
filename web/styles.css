@@ -1,0 +1,22 @@
+a.fa {
+    text-decoration: none;
+}
+a.fa-check {
+    display: none;
+    color: green;
+}
+a.fa-close {
+    display: none;
+    color: red;
+}
+a.fa-check.visible {
+    display: inline;
+    font-size: 200%;
+}
+a.fa-close.visible {
+    display: inline;
+    font-size: 200%;
+}
+div.information {
+    display: none;
+}

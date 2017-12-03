@@ -1,10 +1,10 @@
 package model;
 
 public class Artikkeli {
-    private int artikkeli_id;
-    private String nimi, lisatiedot;
-    private float pyyntihinta;
-    private Alusta alusta;
+    private int Artikkeli_id;
+    private String Nimi, Lisatiedot;
+    private float Pyyntihinta;
+    private Alusta Alusta;
 
     public Artikkeli() {
         super();
@@ -12,61 +12,61 @@ public class Artikkeli {
 
     public Artikkeli(int artikkeli_id, String nimi, String lisatiedot, float pyyntihinta) {
         super();
-        this.artikkeli_id = artikkeli_id;
-        this.nimi = nimi;
-        this.lisatiedot = lisatiedot;
-        this.pyyntihinta = pyyntihinta;
-        this.alusta = new Alusta();
+        this.Artikkeli_id = artikkeli_id;
+        this.Nimi = nimi;
+        this.Lisatiedot = lisatiedot;
+        this.Pyyntihinta = pyyntihinta;
+        this.Alusta = new Alusta();
     }
 
     public int getArtikkeli_id() {
-        return artikkeli_id;
+        return Artikkeli_id;
     }
 
     public void setArtikkeli_id(int artikkeli_id) {
-        this.artikkeli_id = artikkeli_id;
+        this.Artikkeli_id = artikkeli_id;
     }
 
     public String getNimi() {
-        return nimi;
+        return Nimi;
     }
 
     public void setNimi(String nimi) {
-        this.nimi = nimi;
+        this.Nimi = nimi;
     }
 
     public String getLisatiedot() {
-        return lisatiedot;
+        return Lisatiedot;
     }
 
     public void setLisatiedot(String lisatiedot) {
-        this.lisatiedot = lisatiedot;
+        this.Lisatiedot = lisatiedot;
     }
 
     public float getPyyntihinta() {
-        return pyyntihinta;
+        return Pyyntihinta;
     }
 
     public void setPyyntihinta(float pyyntihinta) {
-        this.pyyntihinta = pyyntihinta;
+        this.Pyyntihinta = pyyntihinta;
     }
 
-    public void setPyyntihinta(String pyyntihinta) { this.pyyntihinta = Float.parseFloat(pyyntihinta);}
+    public void setPyyntihinta(String pyyntihinta) { this.Pyyntihinta = Float.parseFloat(pyyntihinta);}
 
     public Alusta getAlusta() {
-        return this.alusta;
+        return this.Alusta;
     }
 
     public void setAlusta(Alusta alusta) {
-        this.alusta = alusta;
+        this.Alusta = alusta;
     }
 
 
 
     @Override
     public String toString() {
-        return "Artikkeli [artikkeli_id=" + artikkeli_id + ", nimi=" + nimi
-                + ", lisatiedot=" + lisatiedot + ", pyyntihinta=" + pyyntihinta + "]";
+        return "Artikkeli [artikkeli_id=" + Artikkeli_id + ", Nimi=" + Nimi
+                + ", Lisatiedot=" + Lisatiedot + ", Pyyntihinta=" + Pyyntihinta + "]";
     }
 
 }
