@@ -88,7 +88,7 @@
 
             $("a.fa-pencil").last().click(function() {
                 <%-- Haetaan artikkelin nykyinen nimi --%>
-                var html = $(this).closest("tr").children("td.Nimi").html()
+                var html = $(this).closest("tr").children("td.Nimi").html();
                 <%-- Luodaan input-tagi, joka korvaa nykyisen solun --%>
                 var input = $('<input type="text" class=\"Nimi\"/>');
                 <%-- Kirjoitetaan artikkelin nykyinen nimi valmiiksi syötekenttään --%>
@@ -97,13 +97,13 @@
                 $(this).closest("tr").children("td.Nimi").html(input);
 
                 <%-- Muutetaan Lisätiedot-kenttä vastaavasti kuin yllä oleva --%>
-                var html = $(this).closest("tr").children("td.Lisatiedot").html()
+                var html = $(this).closest("tr").children("td.Lisatiedot").html();
                 var input = $('<input type="text" class=\"Lisatiedot\"/>');
                 input.val(html);
                 $(this).closest("tr").children("td.Lisatiedot").html(input);
 
 
-                var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id")
+                var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id");
 
                 $(this).closest("tr").find("td.Alusta").replaceWith("<select name=\"Alusta_muok\" data-alusta-id=\""+Alusta_id+"\"></select>");
 

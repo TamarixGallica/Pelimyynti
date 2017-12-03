@@ -59,7 +59,7 @@
             });
 
             $("a.fa-pencil").last().click(function() {
-                var html = $(this).parent().parent().children("td.nimi").html()
+                var html = $(this).parent().parent().children("td.nimi").html();
                 var input = $('<input type="text" />');
                 input.val(html);
                 $(this).parent().parent().children("td.nimi").html(input);
