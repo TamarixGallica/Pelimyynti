@@ -157,12 +157,12 @@ public class Dao {
         String palautusJSON = "";
 
         sql = "UPDATE " + taulu + " SET "+ muutettavaSarake + "=? WHERE "+ ehtoSarake + "=" + ehtoArvo;
-        System.out.println(sql);
 
         con = yhdista();
         if(con != null) {
             stmtPrep = con.prepareStatement(sql);
             stmtPrep.setString(1, uusiArvo);
+            System.out.println(stmtPrep);
             try {
                 rs = stmtPrep.executeQuery();
                 ResultSetMetaData rsmd = rs.getMetaData();
