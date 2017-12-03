@@ -26,7 +26,7 @@ public class Servlet_LisaaArtikkeli_Ajax extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Servlet_LisaaArtikkeli.doPost()");
+        System.out.println("Servlet_LisaaArtikkeli_Ajax.doPost()");
 
         Artikkeli artikkeli = new Artikkeli();
         artikkeli.setNimi(request.getParameter("Nimi"));

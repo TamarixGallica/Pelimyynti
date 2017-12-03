@@ -17,15 +17,15 @@ public class Servlet_LisaaAlusta_Ajax extends HttpServlet {
 
     public Servlet_LisaaAlusta_Ajax() {
         super();
-        System.out.println("Servlet_LisaaAlusta.Servlet_LisaaAlusta()");
+        System.out.println("Servlet_LisaaAlusta_Ajax.Servlet_LisaaAlusta()");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Servlet_LisaaAlusta.doGet()");
+        System.out.println("Servlet_LisaaAlusta_Ajax.doGet()");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Servlet_LisaaAlusta.doPost()");
+        System.out.println("Servlet_LisaaAlusta_Ajax.doPost()");
 
         Alusta alusta = new Alusta();
         alusta.setNimi(request.getParameter("Nimi"));

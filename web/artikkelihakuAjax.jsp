@@ -20,7 +20,6 @@
 
 </table>
 
-<%--<form action="Servlet_LisaaArtikkeli" method="post">--%>
 <form action="#">
     Alusta: <select name="Alusta"></select><br>
     Nimi: <input type="text" name="Nimi"><br>

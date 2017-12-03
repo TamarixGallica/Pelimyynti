@@ -15,12 +15,6 @@
 <body>
 <div>
     <p>
-        GET:
-        <a href="http://localhost:8080/Pelimyynti/artikkelihaku.jsp">Hae artikkelit</a>
-        <a href="http://localhost:8080/Pelimyynti/alustahaku.jsp">Hae alustat</a>
-    </p>
-    <p>
-        AJAX:
         <a href="http://localhost:8080/Pelimyynti/artikkelihakuAjax.jsp">Hae artikkelit</a>
         <a href="http://localhost:8080/Pelimyynti/alustahakuAjax.jsp">Hae alustat</a>
     </p>
