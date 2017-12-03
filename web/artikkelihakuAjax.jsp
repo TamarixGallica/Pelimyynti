@@ -1,6 +1,4 @@
 <%@include file="header.jsp" %>
-<%@ page import="model.Artikkeli"%>
-<%@ page import="java.util.ArrayList"%>
 
 <div class="information">
     Foo.
@@ -202,6 +200,4 @@
 
 </script>
 
-
-</body>
-</html>
+<%@include file="footer.jsp" %>
