@@ -74,17 +74,23 @@
         });
 
         function print_line(key, val) {
-            $("tbody").append("<tr><td class=\"Alusta\" data-alusta-id=\""+val.Alusta.alusta_id+"\">"+val.Alusta.nimi+"</td><td id='" + val.Artikkeli_id + "' class=\"Nimi\">" + val.Nimi + "</td><td>" + val.Lisatiedot + "</td><td>"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
+            $("tbody").append("<tr>" +
+                "<td class=\"Alusta\" data-alusta-id=\""+val.Alusta.alusta_id+"\">"+val.Alusta.nimi+"</td>" +
+                "<td id='" + val.Artikkeli_id + "' class=\"Nimi\">" + val.Nimi + "</td>" +
+                "<td class=\"Lisatiedot\">" + val.Lisatiedot + "</td>" +
+                "<td>"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td>" +
+                "<td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td>" +
+                "</tr>");
 
             $("a.fa-trash").last().click(function() {
-                confirm_deletion($(this).parent().parent().children("td.Nimi")[0].id);
+                confirm_deletion($(this).closest("tr").children("td.Nimi")[0].id);
             });
 
             $("a.fa-pencil").last().click(function() {
-                var html = $(this).parent().parent().children("td.Nimi").html()
-                var input = $('<input type="text" />');
+                var html = $(this).closest("tr").children("td.Nimi").html()
+                var input = $('<input type="text" class=\"Nimi\"/>');
                 input.val(html);
-                $(this).parent().parent().children("td.Nimi").html(input);
+                $(this).closest("tr").children("td.Nimi").html(input);
 
                 var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id")
 
@@ -103,18 +109,18 @@
 
 
                 $(this).hide();
-                $(this).parent().parent().find("a.fa-check").show();
-                $(this).parent().parent().find("a.fa-trash").hide();
-                $(this).parent().parent().find("a.fa-close").show();
+                $(this).closest("tr").find("a.fa-check").show();
+                $(this).closest("tr").find("a.fa-trash").hide();
+                $(this).closest("tr").find("a.fa-close").show();
                 $("div.information").hide(500);
 
             });
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).parent().parent().children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).parent().parent().find("input").val()+"&Alusta_id="+$(this).closest("tr").find("select").val(), function(data) {
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).closest("tr").children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).closest("tr").find("input.Nimi").val()+"&Alusta_id="+$(this).closest("tr").find("select").val(), function(data) {
                     if(data[0].status=="OK") {
-                        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(callee).parent().parent().children("td.Nimi")[0].id, function(data2) {
+                        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(callee).closest("tr").children("td.Nimi")[0].id, function(data2) {
 
                             var rowNumber = $("td.Nimi#154").closest("tr").index();
                             $.each(data2, function(key, val) {
@@ -128,25 +134,25 @@
                         });
 
                     }
-                    $(callee).parent().parent().find("a.fa-pencil").show();
-                    $(callee).parent().parent().find("a.fa-check").hide();
-                    $(callee).parent().parent().find("a.fa-trash").show();
-                    $(callee).parent().parent().find("a.fa-close").hide();
+                    $(callee).closest("tr").find("a.fa-pencil").show();
+                    $(callee).closest("tr").find("a.fa-check").hide();
+                    $(callee).closest("tr").find("a.fa-trash").show();
+                    $(callee).closest("tr").find("a.fa-close").hide();
 
                 });
             });
 
             $("a.fa-close").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(this).parent().parent().children("td.Nimi")[0].id, function(data) {
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(this).closest("tr").children("td.Nimi")[0].id, function(data) {
                     $.each( data, function( key, val ) {
-                        $(callee).parent().parent().find("input").replaceWith(val.Nimi);
+                        $(callee).closest("tr").find("input").replaceWith(val.Nimi);
                     });
                 });
-                $(this).parent().parent().find("a.fa-pencil").show();
-                $(this).parent().parent().find("a.fa-check").hide();
-                $(this).parent().parent().find("a.fa-trash").show();
-                $(this).parent().parent().find("a.fa-close").hide();
+                $(this).closest("tr").find("a.fa-pencil").show();
+                $(this).closest("tr").find("a.fa-check").hide();
+                $(this).closest("tr").find("a.fa-trash").show();
+                $(this).closest("tr").find("a.fa-close").hide();
 
                 $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+$(this).closest("tr").find("select").attr("data-alusta-id"), function(data) {
                     $.each( data, function( key, val ) {
