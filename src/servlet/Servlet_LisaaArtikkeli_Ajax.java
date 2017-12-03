@@ -1,6 +1,5 @@
 package servlet;
 
-import dao.Dao_Alusta;
 import dao.Dao_Artikkeli;
 import model.Alusta;
 import model.Artikkeli;

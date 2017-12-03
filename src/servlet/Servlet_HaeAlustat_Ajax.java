@@ -1,7 +1,6 @@
 package servlet;
 
 import dao.Dao_Alusta;
-import dao.Dao_Artikkeli;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

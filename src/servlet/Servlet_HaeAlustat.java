@@ -1,8 +1,6 @@
 package servlet;
 
-import com.sun.deploy.net.HttpRequest;
 import dao.Dao_Alusta;
-import dao.Dao_Artikkeli;
 import model.Alusta;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
 import java.util.ArrayList;
 
