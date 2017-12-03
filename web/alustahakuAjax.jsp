@@ -77,6 +77,7 @@
                     if(data[0].status=="OK") {
                         $(callee).parent().parent().find("input").replaceWith($(callee).parent().parent().find("input").val());
                     }
+                    $("thead th.th_Nimi").stupidsort();
                     $(callee).parent().parent().find("a.fa-pencil").show();
                     $(callee).parent().parent().find("a.fa-check").hide();
                     $(callee).parent().parent().find("a.fa-trash").show();
