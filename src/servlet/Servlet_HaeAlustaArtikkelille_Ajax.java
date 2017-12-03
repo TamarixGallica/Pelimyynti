@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.Dao;
+import dao.Dao_Alusta;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class Servlet_HaeAlustaArtikkelille_Ajax extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Servlet_HaeAlustaArtikkelille_Ajax.doGet()");
-        Dao dao = new Dao();
+        Dao dao = new Dao_Alusta();
         try {
             String[] sarakkeet = {"Alustat_id"};
             String strJSON = dao.haeTiedotJSON(sarakkeet, "pm_artikkelit_alustat", "Artikkelit_id", request.getParameter("id"));

@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.Dao;
+import dao.Dao_Alusta;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class Servlet_MuutaAlusta_Ajax extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Servlet_MuutaAlusta_Ajax.DoGet()");
-        Dao dao = new Dao();
+        Dao dao = new Dao_Alusta();
         try {
             String strJSON = dao.muutaTiedotJSON("pm_alustat", "Alustat_id", request.getParameter("id"), "Nimi", request.getParameter("Nimi"));
             PrintWriter out = response.getWriter();
