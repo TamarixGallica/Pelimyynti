@@ -12,9 +12,9 @@
     <%
         if(request.getAttribute("alustat")!=null) {
             ArrayList<Alusta> alustat = (ArrayList<Alusta>) request.getAttribute("alustat");
-            for (int i = 0; i < alustat.size(); i++) {
+            for (Alusta anAlustat : alustat) {
                 out.print("\n<tr>");
-                out.print("<td>" + alustat.get(i).getNimi() + "</td>");
+                out.print("<td>" + anAlustat.getNimi() + "</td>");
                 out.print("</tr>");
             }
         } else {

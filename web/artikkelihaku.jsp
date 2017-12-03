@@ -14,11 +14,11 @@
     <%
         if(request.getAttribute("artikkelit")!=null) {
             ArrayList<Artikkeli> artikkelit = (ArrayList<Artikkeli>) request.getAttribute("artikkelit");
-            for (int i = 0; i < artikkelit.size(); i++) {
+            for (Artikkeli anArtikkelit : artikkelit) {
                 out.print("\n<tr>");
-                out.print("<td>" + artikkelit.get(i).getNimi() + "</td>");
-                out.print("<td>" + artikkelit.get(i).getLisatiedot() + "</td>");
-                out.print("<td>" + artikkelit.get(i).getPyyntihinta() + "</td>");
+                out.print("<td>" + anArtikkelit.getNimi() + "</td>");
+                out.print("<td>" + anArtikkelit.getLisatiedot() + "</td>");
+                out.print("<td>" + anArtikkelit.getPyyntihinta() + "</td>");
                 out.print("</tr>");
             }
         } else {
