@@ -75,7 +75,7 @@
 
         function print_line(key, val) {
             $("tbody").append("<tr>" +
-                "<td class=\"Alusta\" data-alusta-id=\""+val.Alusta.alusta_id+"\">"+val.Alusta.nimi+"</td>" +
+                "<td class=\"Alusta\" data-alusta-id=\""+val.Alusta.Alusta_id+"\">"+val.Alusta.Nimi+"</td>" +
                 "<td id='" + val.Artikkeli_id + "' class=\"Nimi\">" + val.Nimi + "</td>" +
                 "<td class=\"Lisatiedot\">" + val.Lisatiedot + "</td>" +
                 "<td>"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td>" +
@@ -113,7 +113,7 @@
                 $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data) {
                     $.each( data, function( key, val) {
                         //$("select[name=Alusta]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
-                        $(callee).closest("tr").find("select[name=Alusta_muok]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
+                        $(callee).closest("tr").find("select[name=Alusta_muok]").append("<option value=\""+val.Alusta_id+"\">"+val.Nimi+"</option>");
                     });
                     $(callee).closest("tr").find("option[value="+Alusta_id+"]").attr("selected","selected");
                 });

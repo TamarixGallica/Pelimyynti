@@ -1,8 +1,8 @@
 package model;
 
 public class Alusta {
-    private int alusta_id;
-    private String nimi;
+    private int Alusta_id;
+    private String Nimi;
 
     public Alusta()
     {
@@ -11,28 +11,28 @@ public class Alusta {
 
     public Alusta(int alusta_id, String nimi) {
         super();
-        this.alusta_id = alusta_id;
-        this.nimi = nimi;
+        this.Alusta_id = alusta_id;
+        this.Nimi = nimi;
     }
 
     public int getAlusta_id() {
-        return alusta_id;
+        return Alusta_id;
     }
 
     public void setAlusta_id(int alusta_id) {
-        this.alusta_id = alusta_id;
+        this.Alusta_id = alusta_id;
     }
 
     public String getNimi() {
-        return nimi;
+        return Nimi;
     }
 
     public void setNimi(String nimi) {
-        this.nimi = nimi;
+        this.Nimi = nimi;
     }
 
     @Override
     public String toString() {
-        return "Alusta [alusta_id=" + alusta_id + ", nimi=" + nimi + "]";
+        return "Alusta [Alusta_id=" + Alusta_id + ", Nimi=" + Nimi + "]";
     }
 }

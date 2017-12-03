@@ -9,17 +9,21 @@
 <table>
     <thead id="headi">
     <tr>
-        <th>Nimi</th>
+        <th data-sort="string" class="th_Nimi">Nimi</th>
         <th></th>
         <th></th>
     </tr>
     </thead>
+    <tbody>
+    </tbody>
 
 </table>
 
 <script>
 
     $(document).ready(function() {
+
+        $("table").stupidtable();
 
         function confirm_deletion(id) {
             $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+id, function(data) {
@@ -48,7 +52,7 @@
         }
 
         function print_line(key, val) {
-            $("thead").append("<tr><td id=\'" + val.Alustat_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
+            $("tbody").append("<tr><td id=\'" + val.Alusta_id + "\' class=\'nimi\'>" + val.Nimi + "</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td><td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td></tr>");
 
             $("a.fa-trash").last().click(function() {
                 confirm_deletion($(this).parent().parent().children("td.nimi")[0].id);
@@ -69,7 +73,7 @@
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id+"&Nimi="+$(this).parent().parent().find("input").val(), function(data) {
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).closest("tr").children("td.nimi")[0].id+"&Nimi="+$(this).closest("tr").find("input").val(), function(data) {
                     if(data[0].status=="OK") {
                         $(callee).parent().parent().find("input").replaceWith($(callee).parent().parent().find("input").val());
                     }
@@ -102,21 +106,10 @@
             $.each( data, function( key, val ) {
                 print_line(key, val);
             });
-//            $('td').hover(function() {
-//                $(this).addClass('hover');
-//                $(this).children().addClass('hover');
-////            $(this).children("span").css("display", "inline");
-//            }, function() {
-//                $(this).removeClass('hover');
-//                $(this).children().removeClass('hover');
-//            });
-
 
         });
 
         $("#Lisaa").click(function() {
-//            $("thead").append("<h2>Jotain tämä kuitenkin tekee</h2>");
-//            alert("Hep!");
             $.post("Servlet_LisaaAlusta_Ajax", { Nimi: $("[name=Nimi]").val()})
                 .done(function(data) {
                     if(data < 0) {
@@ -127,6 +120,7 @@
                             $.each( data2, function( key, val ) {
                                 print_line(key, val);
                             });
+                            $("thead th.th_Nimi").stupidsort();
                             $("[name=Nimi]").val("");
 
                         })

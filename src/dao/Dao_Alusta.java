@@ -1,5 +1,6 @@
 package dao;
 
+import com.google.gson.Gson;
 import model.Alusta;
 
 import java.sql.ResultSet;
@@ -73,6 +74,44 @@ public class Dao_Alusta extends Dao {
         }
 
         return paluuArvo;
+    }
+
+    public String haeTiedotJSON(String ehtoSarake, String ehtoArvo) throws Exception {
+        ArrayList<Alusta> lista = new ArrayList<>();
+
+        String ehtolause="";
+        if(ehtoSarake.length()>0){
+            ehtolause = " WHERE "+ehtoSarake+"=?";
+        }
+
+        sql = "SELECT * FROM pm_alustat ORDER BY Nimi";
+
+
+        System.out.println(sql);
+        con = yhdista();
+        if(con != null) {
+            stmtPrep = con.prepareStatement(sql);
+            if(ehtolause.length()>0){
+                stmtPrep.setString(1, ehtoArvo);
+            }
+            System.out.println(stmtPrep);
+            rs = stmtPrep.executeQuery();
+            if(rs!=null) {
+                while(rs.next())
+                {
+                    Alusta alusta = new Alusta();
+                    alusta.setAlusta_id(rs.getInt("Alustat_Id"));
+                    alusta.setNimi(rs.getString("Nimi"));
+                    lista.add(alusta);
+                }
+            }
+
+            con.close();
+
+
+        }
+
+        return new Gson().toJson(lista);
     }
 
 }
