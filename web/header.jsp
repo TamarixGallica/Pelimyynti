@@ -17,6 +17,6 @@
     <p>
         <a href="http://localhost:8080/Pelimyynti/artikkelihakuAjax.jsp">Hae artikkelit</a>
         <a href="http://localhost:8080/Pelimyynti/alustahakuAjax.jsp">Hae alustat</a>
-        <a href="http://localhost:8080/Pelimyynti/tulostaListaAjax.jsp">Tulosta lista</a>
+        <a href="http://localhost:8080/Pelimyynti/tulostalistaAjax.jsp">Tulosta lista</a>
     </p>
 </div>
