@@ -27,6 +27,7 @@ public class Servlet_MuutaArtikkeli_Ajax extends HttpServlet {
             //dao.muutaTiedotJSON("pm_artikkelit_alustat", "Alustat_id", request.getParameter("Alusta_id"), "");
             dao.muutaTiedotJSON("pm_artikkelit_alustat", "Artikkelit_id", request.getParameter("Artikkeli_id"), "Alustat_id", request.getParameter("Alusta_id"));
             dao.muutaTiedotJSON("pm_artikkelit", "Artikkelit_id", request.getParameter("Artikkeli_id"), "Lisatiedot", request.getParameter("Artikkeli_lisatiedot"));
+            dao.muutaTiedotJSON("pm_artikkelit", "Artikkelit_id", request.getParameter("Artikkeli_id"), "Pyyntihinta", request.getParameter("Artikkeli_pyyntihinta"));
             String strJSON = dao.muutaTiedotJSON("pm_artikkelit", "Artikkelit_id", request.getParameter("Artikkeli_id"), "Nimi", request.getParameter("Artikkeli_nimi"));
             PrintWriter out = response.getWriter();
             //            response.setContentType("text/html");

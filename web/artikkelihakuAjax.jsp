@@ -75,7 +75,7 @@
                 "<td class=\"Alusta\" data-alusta-id=\""+val.Alusta.Alusta_id+"\">"+val.Alusta.Nimi+"</td>" +
                 "<td id='" + val.Artikkeli_id + "' class=\"Nimi\">" + val.Nimi + "</td>" +
                 "<td class=\"Lisatiedot\">" + val.Lisatiedot + "</td>" +
-                "<td>"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td>" +
+                "<td class=\"Pyyntihinta\">"+val.Pyyntihinta+"</td><td><a href=\"#\" class=\"fa fa-pencil\"></a><a href=\"#\" class=\"fa fa-check\"></a></td>" +
                 "<td><a href=\"#\" class=\"fa fa-trash\"></a><a href=\"#\" class=\"fa fa-close\"></a></td>" +
                 "</tr>");
 
@@ -99,6 +99,11 @@
                 input.val(html);
                 $(this).closest("tr").children("td.Lisatiedot").html(input);
 
+                <%-- Muutetaan Pyyntihinta-kenttä vastaavasti kuin yllä oleva --%>
+                var html = $(this).closest("tr").children("td.Pyyntihinta").html();
+                var input = $('<input type="text" class=\"Pyyntihinta\"/>');
+                input.val(html);
+                $(this).closest("tr").children("td.Pyyntihinta").html(input);
 
                 var Alusta_id = $(this).closest("tr").find("td.Alusta").attr("data-alusta-id");
 
@@ -126,7 +131,7 @@
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).closest("tr").children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).closest("tr").find("input.Nimi").val()+"&Alusta_id="+$(this).closest("tr").find("select").val()+"&Artikkeli_lisatiedot="+$(this).closest("tr").find("input.Lisatiedot").val(), function(data) {
+                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaArtikkeli_Ajax?Artikkeli_id="+$(this).closest("tr").children("td.Nimi")[0].id+"&Artikkeli_nimi="+$(this).closest("tr").find("input.Nimi").val()+"&Alusta_id="+$(this).closest("tr").find("select").val()+"&Artikkeli_lisatiedot="+$(this).closest("tr").find("input.Lisatiedot").val()+"&Artikkeli_pyyntihinta="+$(this).closest("tr").find("input.Pyyntihinta").val(), function(data) {
                     if(data[0].status=="OK") {
                         $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+$(callee).closest("tr").children("td.Nimi")[0].id, function(data2) {
 
