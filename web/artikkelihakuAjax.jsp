@@ -66,7 +66,7 @@
 
         $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data) {
             $.each( data, function( key, val) {
-               $("select[name=Alusta]").append("<option value=\""+val.Alustat_id+"\">"+val.Nimi+"</option>");
+               $("select[name=Alusta]").append("<option value=\""+val.Alusta_id+"\">"+val.Nimi+"</option>");
             });
         });
 
@@ -182,7 +182,12 @@
         }
 
         $("#Lisaa").click(function() {
-            $.post("Servlet_LisaaArtikkeli_Ajax", { Alustat_id: $("select[name=Alusta]").val(), Nimi: $("[name=Nimi]").val(), Lisatiedot: $("[name=Lisatiedot]").val(), Pyyntihinta: $("[name=Pyyntihinta]").val()})
+            $.post("Servlet_LisaaArtikkeli_Ajax", {
+                Alustat_id: $("select[name=Alusta]").val(),
+                Nimi: $("[name=Nimi]").val(),
+                Lisatiedot: $("[name=Lisatiedot]").val(),
+                Pyyntihinta: $("[name=Pyyntihinta]").val()
+            })
                 .done(function(data) {
                     if(data < 0) {
 
