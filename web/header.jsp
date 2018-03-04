@@ -15,8 +15,8 @@
 <body>
 <div>
     <p>
-        <a href="http://localhost:8080/Pelimyynti/artikkelihakuAjax.jsp">Hae artikkelit</a>
-        <a href="http://localhost:8080/Pelimyynti/alustahakuAjax.jsp">Hae alustat</a>
-        <a href="http://localhost:8080/Pelimyynti/tulostalistaAjax.jsp">Tulosta lista</a>
+        <a href="/Pelimyynti/artikkelihakuAjax.jsp">Hae artikkelit</a>
+        <a href="/Pelimyynti/alustahakuAjax.jsp">Hae alustat</a>
+        <a href="/Pelimyynti/tulostalistaAjax.jsp">Tulosta lista</a>
     </p>
 </div>

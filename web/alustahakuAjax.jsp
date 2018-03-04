@@ -26,7 +26,7 @@
         $("table").stupidtable();
 
         function confirm_deletion(id) {
-            $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+id, function(data) {
+            $.getJSON("/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+id, function(data) {
                 $.each( data, function( key, val ) {
                     $("div.information").html("<p>Haluatko varmasti poistaa alustan "+val.Nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>");
                     $("div.information").show(500);
@@ -73,7 +73,7 @@
 
             $("a.fa-check").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).closest("tr").children("td.nimi")[0].id+"&Nimi="+$(this).closest("tr").find("input").val(), function(data) {
+                $.getJSON("/Pelimyynti/Servlet_MuutaAlusta_Ajax?id="+$(this).closest("tr").children("td.nimi")[0].id+"&Nimi="+$(this).closest("tr").find("input").val(), function(data) {
                     if(data[0].status=="OK") {
                         $(callee).parent().parent().find("input").replaceWith($(callee).parent().parent().find("input").val());
                     }
@@ -88,7 +88,7 @@
 
             $("a.fa-close").last().click(function() {
                 var callee = this;
-                $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
+                $.getJSON("/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+$(this).parent().parent().children("td.nimi")[0].id, function(data) {
                     $.each( data, function( key, val ) {
                         $(callee).parent().parent().find("input").replaceWith(val.Nimi);
                     });
@@ -102,7 +102,7 @@
 
         }
 
-        $.getJSON( "http://localhost:8080/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data ) {
+        $.getJSON( "/Pelimyynti/Servlet_HaeAlustat_Ajax", function( data ) {
             var items = [];
             $.each( data, function( key, val ) {
                 print_line(key, val);
@@ -117,7 +117,7 @@
 
                     }
                     else {
-                        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+data, function(data2) {
+                        $.getJSON("/Pelimyynti/Servlet_HaeAlusta_Ajax?id="+data, function(data2) {
                             $.each( data2, function( key, val ) {
                                 print_line(key, val);
                             });

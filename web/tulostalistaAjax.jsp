@@ -6,7 +6,7 @@
 
 <script>
     $(document).ready(function() {
-        $.getJSON("http://localhost:8080/Pelimyynti/Servlet_HaeArtikkelit_Ajax", function(artikkelit) {
+        $.getJSON("/Pelimyynti/Servlet_HaeArtikkelit_Ajax", function(artikkelit) {
             var alusta_cur=-1;
             var p;
             $.each(artikkelit, function(artikkelit_ind, artikkeli ) {
