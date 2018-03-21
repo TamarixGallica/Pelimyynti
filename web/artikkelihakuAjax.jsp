@@ -200,6 +200,7 @@
                             $("[name=Nimi]").val("");
                             $("[name=Lisatiedot]").val("");
                             $("[name=Pyyntihinta]").val("");
+                            $("[name=Nimi]").focus();
                         })
                     }
                 });
