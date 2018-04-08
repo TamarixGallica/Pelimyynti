@@ -13,7 +13,7 @@
 
                 // Jos artikkeli on jo myyty, jätetään se tulostamatta
                 if(artikkeli.Myyntihinta != 0)
-                    confinue;
+                    return true;
 
                 var lisatiedot="";
                 if(artikkeli.Alusta.Nimi!=alusta_cur) {
