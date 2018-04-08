@@ -30,7 +30,7 @@
     function confirm_deletion(id) {
         $.getJSON("/Pelimyynti/Servlet_HaeArtikkeli_Ajax?id="+id, function(data) {
             $.each( data, function( key, val ) {
-                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>")
+                $("div.information").html("<p>Haluatko varmasti poistaa artikkelin "+val.Nimi+"?</p><a href=\"#\" class=\"fa fa-check visible\"></a><a class=\"fa fa-close visible\" href=\"#\"></a></p>")
                     .show(500);
             });
 
