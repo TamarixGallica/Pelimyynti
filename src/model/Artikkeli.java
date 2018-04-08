@@ -4,6 +4,7 @@ public class Artikkeli {
     private int Artikkeli_id;
     private String Nimi, Lisatiedot;
     private float Pyyntihinta;
+    private float Myyntihinta;
     private Alusta Alusta;
 
     public Artikkeli() {
@@ -61,12 +62,14 @@ public class Artikkeli {
         this.Alusta = alusta;
     }
 
+    public float getMyyntihinta() { return this. Myyntihinta; }
 
+    public void setMyyntihinta(float myyntihinta) { this.Myyntihinta = myyntihinta; }
 
     @Override
     public String toString() {
         return "Artikkeli [artikkeli_id=" + Artikkeli_id + ", Nimi=" + Nimi
-                + ", Lisatiedot=" + Lisatiedot + ", Pyyntihinta=" + Pyyntihinta + "]";
+                + ", Lisatiedot=" + Lisatiedot + ", Pyyntihinta=" + Pyyntihinta + ", Myyntihinta=" + Myyntihinta + "]";
     }
 
 }

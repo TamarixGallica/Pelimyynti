@@ -10,6 +10,11 @@
             var alusta_cur=-1;
             var p;
             $.each(artikkelit, function(artikkelit_ind, artikkeli ) {
+
+                // Jos artikkeli on jo myyty, jätetään se tulostamatta
+                if(artikkeli.Myyntihinta != 0)
+                    confinue;
+
                 var lisatiedot="";
                 if(artikkeli.Alusta.Nimi!=alusta_cur) {
                     alusta_cur = artikkeli.Alusta.Nimi;

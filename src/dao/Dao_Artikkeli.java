@@ -26,6 +26,7 @@ public class Dao_Artikkeli extends Dao {
                     artikkeli.setNimi(rs.getString("Nimi"));
                     artikkeli.setLisatiedot(rs.getString("Lisatiedot"));
                     artikkeli.setPyyntihinta(rs.getFloat("Pyyntihinta"));
+                    artikkeli.setMyyntihinta(rs.getFloat("Myyntihinta"));
                     artikkelit.add(artikkeli);
                 }
             }
@@ -96,7 +97,7 @@ public class Dao_Artikkeli extends Dao {
     }
 
     public String haeTiedotJSON(String ehtoSarake, String ehtoArvo) throws Exception {
-        String[] sarakkeet = {"Alusta_id", "Alusta_Nimi", "Artikkeli_Nimi", "Lisatiedot", "Pyyntihinta"};
+        String[] sarakkeet = {"Alusta_id", "Alusta_Nimi", "Artikkeli_Nimi", "Lisatiedot", "Pyyntihinta", "Myyntihinta"};
         ArrayList<Artikkeli> lista = new ArrayList<>();
 
         String ehtolause="";
@@ -104,7 +105,7 @@ public class Dao_Artikkeli extends Dao {
             ehtolause = " WHERE "+ehtoSarake+"=?";
         }
 
-        sql = "SELECT alu.Alustat_id as Alusta_Id, art.Artikkelit_id as Artikkeli_Id, alu.Nimi as Alusta_Nimi, art.Nimi as Artikkeli_Nimi, art.Lisatiedot, art.Pyyntihinta from pm_artikkelit_alustat pmaa join pm_artikkelit art on pmaa.Artikkelit_id = art.Artikkelit_id join pm_alustat alu on pmaa.Alustat_id = alu.Alustat_id "+ehtolause+"ORDER BY alu.Nimi,art.Nimi";
+        sql = "SELECT alu.Alustat_id as Alusta_Id, art.Artikkelit_id as Artikkeli_Id, alu.Nimi as Alusta_Nimi, art.Nimi as Artikkeli_Nimi, art.Lisatiedot, art.Pyyntihinta, art.Myyntihinta from pm_artikkelit_alustat pmaa join pm_artikkelit art on pmaa.Artikkelit_id = art.Artikkelit_id join pm_alustat alu on pmaa.Alustat_id = alu.Alustat_id "+ehtolause+"ORDER BY alu.Nimi,art.Nimi";
 
 
         System.out.println(sql);
@@ -124,6 +125,7 @@ public class Dao_Artikkeli extends Dao {
                     artikkeli.setArtikkeli_id(rs.getInt("Artikkeli_Id"));
                     artikkeli.setPyyntihinta(rs.getFloat("Pyyntihinta"));
                     artikkeli.setLisatiedot(rs.getString("Lisatiedot"));
+                    artikkeli.setMyyntihinta(rs.getFloat("Myyntihinta"));
 
                     Alusta alusta = new Alusta();
                     alusta.setAlusta_id(rs.getInt("Alusta_Id"));
